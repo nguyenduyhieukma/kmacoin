@@ -144,7 +144,7 @@ Các bước cơ bản để cài đặt và sử dụng KMA-Coin gồm (các v�
 
 2. Tải mã nguồn KMA-Coin về:
     ```console
-    git clone https://github.com/nguyenduyhieukma/from-Blockchain-to-Bitcoin.git
+    git clone https://github.com/nguyenduyhieukma/kmacoin.git
     ```
 
 3. Nhảy vào thư mục _kmacoin_ vừa tải về:
