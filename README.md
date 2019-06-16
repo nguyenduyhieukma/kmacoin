@@ -70,7 +70,7 @@ for i in range(10):
 
 Có thể thấy, khi nút có tốc độ băm là 10 H/s thì sai số tương đối không vượt quá 1/1000. Nhìn chung, độ chính xác ảo hóa càng cao khi tốc độ băm càng nhỏ.
 
-### 3.3 Ảo hóa tốc độ truyền dẫn
+### 3.3 Ảo hóa độ trễ truyền dẫn
 
 KMA-Coin hỗ trợ ảo hóa độ trễ truyền dẫn trên liên kết giữa 2 nút mạng bất kì. Dĩ nhiên độ trễ ảo hóa không thể nhỏ hơn độ trễ thật. Tính năng này cộng với tính năng trước đó (ảo hóa tốc độ làm việc) cho phép toàn mạng KMA-Coin có thể được mô phỏng chỉ bằng một chiếc máy tính cá nhân duy nhất.
 
