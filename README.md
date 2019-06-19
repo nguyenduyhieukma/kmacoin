@@ -49,7 +49,8 @@ from time import time
 # add a miner that can perform 10 hashes per second.
 miner = LazyMiner(node=None, hash_rate=10)
 
-for i in range(10):
+# test the time spent on each hash (expect 0.1s)
+for i in range(10):  # test 10 times
     t1 = time()
     miner.virt_attempt(block=Block(prev_id=HASH_OF_NULL), threshold=HASH_OF_NULL)
     t2 = time()
@@ -80,7 +81,7 @@ from kmacoin.network.kmasocket import KMASocket
 from time import time, sleep
 import threading
 
-# the server socket's listening address 
+# the server socket's listening address
 ADDRESS = ('localhost', 6666)
 
 # virtual latency of 2 nodes depends on their virtual locations
@@ -124,11 +125,11 @@ client_socket.close()
 
 KMA-Coin hỗ trợ hiển thị hình ảnh cây khối (mô-đun _atnode/workers/blockvisualizer.py_) như trong [_Hình 1_](#hinh_1), và các hoạt động trên mạng ngang hàng (mô-đun _network/visualizing.py_) như trong [_Hình 2_](#hinh_2). Điều này giúp chúng ta có cái nhìn trực quan hơn về những gì đang xảy ra trong hệ thống.
 
-|<a id='hinh_1'></a> ![](images/blocktree-visualizing.png)|
+|<img id='hinh_1' src='images/blocktree-visualizing.png'>|
 |:--|
 |_Hình 1: Hình ảnh hóa cây khối_|
 
-|<a id='hinh_2'></a> ![](images/network-activities-visualizing.gif)|
+|<img id='hinh_2' src='images/network-activities-visualizing.gif'>|
 |:--|
 |_Hình 2: Hình ảnh hóa các hoạt động trên mạng ngang hàng_|
 
@@ -151,12 +152,12 @@ Các bước cơ bản để cài đặt và sử dụng KMA-Coin gồm (các v�
     ```console
     cd kmacoin
     ```
-    
+
 4. Thay đổi số lượng nút và cấu hình mỗi nút bằng cách chỉnh sửa tập tin *nodes_conf.py* (các thông số cấu hình thường dùng được trình bày trong [_Bảng 2_](#bang_2):
     ```console
     nano nodes_conf.py
     ```
-    
+
 5. Bắt đầu thực hiện mô phỏng bằng cách thực thi mô-đun _kmacoin.py_:
     ```console
     python3 kmacoin.py
@@ -237,7 +238,7 @@ Ngoài ra, tại mô-đun _globaldef/mining.py_, ta điều chỉnh lại một 
 
 [_Hình 3_](#hinh_3) ghi lại một khoảnh khắc của cây khối tại nút N1 trong quá trình vận hành. Xanh lá cây là màu của những khối công bố bởi kẻ tấn công. Chúng đều là những khối rỗng (dù điều này không được thể hiện trong hình).
 
-|<a id='hinh_3'></a> ![](images/system-freezer.png)|
+|<img id='hinh_3' src='images/system-freezer.png'>|
 |:--|
 |_Hình 3: Hình ảnh cây khối trong quá trình tấn công 51% - đóng băng hệ thống_|
 
@@ -259,30 +260,31 @@ rm -r kmacoin_root
 
 Hệ thống hoạt động bình thường cho đến khi cây khối có chiều cao bằng 3 ([_Hình 4_](#hinh_4)).
 
-|<a id='hinh_4'></a> ![](images/double-spender-1.png)|
+|<img id='hinh_4' src='images/double-spender-1.png'>|
 |:--|
 |_Hình 4: Hệ thống đang hoạt động bình thường._|
 
 Kẻ tấn công lúc này soạn ra 2 giao dịch (các ví dụ về giao dịch trong thí nghiệm này chỉ mang tính minh họa vì KMA-Coin chưa có chức năng mô phỏng/hình ảnh hóa các giao dịch):
--   Giao dịch T1: gửi tất cả đồng KMA kẻ tấn công có đến một sàn giao dịch để đổi sang các loại tiền khác.
--   Giao dịch T2: gửi tất cả đồng KMA kẻ tấn công có đến một tài khoản khác cũng do kẻ tấn công sở hữu.
+-   _Giao dịch T1_: gửi tất cả đồng KMA kẻ tấn công có đến một sàn giao dịch để đổi sang các loại tiền khác.
+-   _Giao dịch T2_: gửi tất cả đồng KMA kẻ tấn công có đến một tài khoản khác cũng do kẻ tấn công sở hữu.
 
-Sau đó, kẻ tấn công quảng bá T1 và giữ lại T2. Các nút trung thực xác nhận cho T1 và tiếp tục công bố khối như bình thường ([_Hình 5_](#hinh_5)). Trong khi đó, kẻ tấn công tự xây một nhánh riêng (không công khai) để xác nhận T2.
+Sau đó, kẻ tấn công quảng bá T1 và giữ lại T2. Các nút trung thực xác nhận T1, rồi tiếp tục làm việc và công bố khối như thường lệ ([_Hình 5_](#hinh_5)). Trong khi đó, kẻ tấn công bí mật xây một nhánh riêng (không công khai ra ngoài) để xác nhận T2. Lúc này, tần suất công bố khối trên toàn mạng bị chững lại do một lượng lớn sức
+mạnh của hệ thống được sử dụng để triển khai tấn công.
 
-|<a id='hinh_5'></a> ![](images/double-spender-2.png)|
+|<img id='hinh_5' src='images/double-spender-2.png'>|
 |:--|
-|_Hình 5: Các nút trung thực tiếp tục công bố khối và xác nhận cho T1._|
+|_Hình 5: Các nút trung thực tiếp tục làm việc và công bố khối như thường lệ._|
 
 Khi tuổi của khối chứa T1 đủ lớn, sàn giao dịch đồng ý cho kẻ tấn công đổi tiền. Lúc này, kẻ tấn công mới công bố nhánh riêng ([_Hình 6_](#hinh_6)) và tiếp tục xây trên nhánh riêng này.
 
-|<a id='hinh_6'></a> ![](images/double-spender-3.png)|
+|<img id='hinh_6' src='images/double-spender-3.png'>|
 |:--|
 |_Hình 6: Kẻ tấn công công bố khối trên nhánh riêng (màu đỏ)._|
 
 Khi chiều dài nhánh riêng vượt qua nhánh chính ([_Hình 7_](#hinh_7)), nhánh chính bị thay thế và toàn bộ giao dịch mà nó đã xác nhận, trong đó có T1, bị vô hiệu hóa.
 
-|<a id='hinh_7'></a> ![](images/double-spender-4.png)|
+|<img id='hinh_7' src='images/double-spender-4.png'>|
 |:--|
 |_Hình 7: Nhánh chính bị thay thế bởi nhánh riêng của kẻ tấn công._|
 
-Sàn giao dịch không thể phát lại T1, vì T1 và T2 mâu thuẫn nhau (cùng tiêu một lượng tiền giống nhau) và T2 đã được xác nhận trên nhánh riêng trước đó, nên chấp nhận mất tất cả tiền đã đổi cho kẻ tấn công.
+Sàn giao dịch không thể phát lại T1, vì T1 và T2 mâu thuẫn nhau (cùng tiêu những đồng tiền giống nhau) trong khi T2 đã được xác nhận trên nhánh riêng trước đó, nên chấp nhận mất tất cả tiền đã đổi cho kẻ tấn công.
